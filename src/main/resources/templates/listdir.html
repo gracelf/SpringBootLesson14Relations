@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<a href="/adddir">Add a new director</a><br />
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Genre</th>
+    </tr>
+    <th:block th:each="director:${alldir}">
+        <tr>
+            <td th:text="'Id: '+ ${director.id}"></td>
+            <td th:text="'Name: ' + ${director.name}"></td>
+            <td th:text="'Genre: '+${director.genre}"></td>
+
+            <td>
+                <a th:href="@{/addmovie/{director.id}(director.id=${director.id})}">add movie</a>
+            </td>
+        </tr>
+    </th:block>
+</table>
+</body>
+</html>

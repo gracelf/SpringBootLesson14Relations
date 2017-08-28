@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+
+<h2>A new movie is added!</h2>
+<h1>Result</h1>
+<p th:text="'Director:'+ ${thedir.name}"/>
+<p th:text="'Id:'+ ${movie.id}"/>
+<p th:text="'movie title:'+ ${movie.title}"/>
+<p th:text="'year:'+ ${movie.year}"/>
+<p th:text="'description:'+ ${movie.description}"/>
+
+<!--<p th:text="'movie:'+ ${director.movies}" />-->
+
+
+</body>
+</html>
