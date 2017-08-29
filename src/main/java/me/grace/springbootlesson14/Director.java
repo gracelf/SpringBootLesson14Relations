@@ -2,6 +2,7 @@ package me.grace.springbootlesson14;
 
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -18,6 +19,9 @@ public class Director {
     @OneToMany(mappedBy = "director", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
     private Set<Movie> movies;
 
+    public Director(){
+        setMovies(new HashSet<Movie>());
+    }
 
     public long getId() {
         return id;
@@ -50,4 +54,10 @@ public class Director {
     public void setMovies(Set<Movie> movies) {
         this.movies = movies;
     }
+
+    public void addMovie(Movie m){
+        m.setDirector(this);
+        this.movies.add(m);
+    }
+
 }

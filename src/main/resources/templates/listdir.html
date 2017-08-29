@@ -19,7 +19,9 @@
             <td th:text="'Genre: '+${director.genre}"></td>
 
             <td>
-                <a th:href="@{/addmovie/{director.id}(director.id=${director.id})}">add movie</a>
+
+                <a th:href="@{/update/{id}(id=${director.id})}">Add a movie to this director</a>
+
             </td>
         </tr>
     </th:block>

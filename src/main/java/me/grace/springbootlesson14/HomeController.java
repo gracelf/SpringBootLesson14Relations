@@ -16,6 +16,9 @@ public class HomeController {
     @Autowired
     DirectorRepo directorRepo;
 
+    @Autowired
+    MovieRepo movieRepo;
+
 
     @RequestMapping("/")
     public String index(Model model){
@@ -29,19 +32,13 @@ public class HomeController {
         movie.setTitle("star movies");
         movie.setYear(2017);
         movie.setDescription("About Starts...");
-
-        //Add the movies to an empty list
-        Set<Movie> movies = new HashSet<Movie>();
-        movies.add(movie);
+        director.addMovie(movie);
 
         movie=new Movie();
         movie.setTitle("DeathStar Ewoks");
         movie.setYear(2011);
         movie.setDescription("About Ewoks on the DeathStar...");
-        movies.add(movie);
-
-        //Add the list of movies to the director's movie list
-        director.setMovies(movies);
+        director.addMovie(movie);
 
         //save the director to the database
         directorRepo.save(director);
@@ -69,25 +66,67 @@ public class HomeController {
 
     }
 
-    @GetMapping("/addmovie")
-    public String addmov(Model model) {
-        model.addAttribute("movie", new Movie());
 
+    @GetMapping("/listdir")
+    public String listdir(Model model)
+    {
+        Iterable<Director> alldirector= directorRepo.findAll();
+
+        model.addAttribute("alldir", alldirector);
+        return "listdir";
+    }
+
+
+    @RequestMapping("/update/{id}")
+    public String updatemoivetodir(@PathVariable("id") long id, Model model)
+    {
+
+
+        Director onedir = directorRepo.findOne(id);
+        model.addAttribute("onedir", onedir);
+
+//        Set<Movie> onemovset=onedir.getMovies();
+//        model.addAttribute("movieset", onemovset);
+
+        Movie movie = new Movie();
+        movie.setDirector(onedir);
+        model.addAttribute("movie",movie);
+        System.out.println(id);
+        System.out.println(onedir.getId());
         return "movieform";
     }
 
+//    @GetMapping("/addmovie")
+//    public String addmov(Model model) {
+//        model.addAttribute("movie", new Movie());
+//
+//        return "movieform";
+//    }
+
     @PostMapping("/addmovie")
-    public String processNewmovie(@RequestParam("dirName") String dirName, @ModelAttribute("movie") Movie movie, Model model)
+    public String processNewmovie(@ModelAttribute("movie") Movie movie, @ModelAttribute("onedir") Director onedir, Model model)
     {
 
+
+
         //both of the below works, data passed successfully
-        System.out.println(dirName);
+//        System.out.println(dirName);
         System.out.println(movie.getTitle());
 
+        System.out.println(onedir.getId());
 
-        Director thedir = directorRepo.findFirstByNameContains("dirName");
+        //onedir.addMovie(movie);
+        movieRepo.save(movie);
 
-        System.out.println(thedir.getId());
+
+
+        //save the director to the database
+
+
+
+//        Director thedir = directorRepo.findFirstByNameContains("dirName");
+//
+//        System.out.println(thedir.getId());
 
 //        if(thedir.getName()=="null"){
 //            Director director=new Director();
@@ -98,24 +137,15 @@ public class HomeController {
 //            director.setMovies(allmovie);
 //        }
 
-        Set<Movie> allmov=thedir.getMovies();
-        allmov.add(movie);
-        thedir.setMovies(allmov);
-
-        model.addAttribute("thedir", thedir);
+//        Set<Movie> allmov=thedir.getMovies();
+//        allmov.add(movie);
+//        thedir.setMovies(allmov);
+//
+        model.addAttribute("onedir", onedir);
         model.addAttribute("movie", movie);
 
         return "movieconfirm";
 
-    }
-
-    @GetMapping("/listdir")
-    public String listdir(Model model)
-    {
-        Iterable<Director> alldirector= directorRepo.findAll();
-
-        model.addAttribute("alldir", alldirector);
-        return "listdir";
     }
 
 
