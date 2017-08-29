@@ -7,4 +7,6 @@ public interface DirectorRepo extends CrudRepository<Director, Long>
     Director findFirstByNameContains(String partialString);
 
     Iterable<Director> findAllByNameContains(String partialString);
+
+    Director findOne(Long partialLong);
 }

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+
+<form action="#" th:action="@{/addmoviedropdown}" th:object="${movie}" method="post">
+
+    <!--<p><input type="hidden" th:field="*{id}"/></p>-->
+
+    <!--<p><input type="text" th:field="*{director.id}"/></p>-->
+
+
+    <select th:field="*{director.id}">
+        <!--<th:block th:each="director:${alldirector}">-->
+            <option th:each="director:${alldirector}"
+                    th:value="${director.id}" th:inline="text">[[${director.name}]]</option>
+
+        <!--</th:block>-->
+    </select>
+
+    <!--<select th:field="${longnum}">-->
+        <!--&lt;!&ndash;<th:block th:each="director:${alldirector}">&ndash;&gt;-->
+        <!--<option th:each="director:${alldirector}"-->
+                <!--value="director.id">[[${director.name}]]</option>-->
+        <!--&lt;!&ndash;</th:block>&ndash;&gt;-->
+    <!--</select>-->
+
+
+    <p>Enter the name of the movie: <input type="text" th:field="*{title}" /></p>
+
+    <p>Enter the year<input type="number" th:field="*{year}" /></p>
+
+    <p>Enter the description: <input type="text" th:field="*{description}" /></p>
+
+
+
+    <!--<p>Enter the Director Name: <input type="text" placeholder="Enter Director name" name="dirName"/></p>-->
+
+    <!--<p>Enter the movies: <input type="text" th:field="*{movies}" /></p>-->
+    <p><input type="submit" value="Add" /> <input type="reset" value="Reset" /></p>
+
+</form>
+
+<form>
+
+
+</form>
+
+</body>
+</html>

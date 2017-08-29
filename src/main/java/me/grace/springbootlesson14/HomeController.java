@@ -74,10 +74,12 @@ public class HomeController {
 
         model.addAttribute("alldir", alldirector);
         return "listdir";
+
     }
 
 
     @RequestMapping("/update/{id}")
+    //get mapping
     public String updatemoivetodir(@PathVariable("id") long id, Model model)
     {
 
@@ -91,6 +93,8 @@ public class HomeController {
         Movie movie = new Movie();
         movie.setDirector(onedir);
         model.addAttribute("movie",movie);
+
+        //both printout works
         System.out.println(id);
         System.out.println(onedir.getId());
         return "movieform";
@@ -110,9 +114,9 @@ public class HomeController {
 
 
         //both of the below works, data passed successfully
-//        System.out.println(dirName);
+        //System.out.println(dirName);
         System.out.println(movie.getTitle());
-
+        // id doesn't show correctly
         System.out.println(onedir.getId());
 
         //onedir.addMovie(movie);
@@ -148,6 +152,45 @@ public class HomeController {
 
     }
 
+
+    @GetMapping("/addmoviedropdown")
+    public String addmovieanddir(Model model)
+    {
+
+
+        //the follwoing test works by find by id
+//        long someid = 1L;
+//
+//        Director somedir = directorRepo.findOne(someid);
+//
+//        Director seconddir = directorRepo.findOne(2L);
+//
+//        System.out.println(seconddir.getId());
+
+        Movie movie = new Movie();
+        model.addAttribute("movie",movie);
+
+
+        Iterable<Director> alldirector= directorRepo.findAll();
+        model.addAttribute("alldirector",alldirector);
+
+
+        return "movieformdropdown";
+
+    }
+
+    @PostMapping("/addmoviedropdown")
+    public String processNewmoviedd(@ModelAttribute("movie") Movie movie, Model model) {
+
+
+        movie.setDirector(directorRepo.findOne(movie.getDirector().getId()));
+
+        movieRepo.save(movie);
+
+        return "movieconfirm";
+
+
+    }
 
 
 }
