@@ -66,7 +66,7 @@ public class HomeController {
 
     }
 
-
+    //list all directors, for each director, allow user to add a movie to this director/ view all movie by this director
     @GetMapping("/listdir")
     public String listdir(Model model)
     {
@@ -77,7 +77,18 @@ public class HomeController {
 
     }
 
+    @RequestMapping("/show/{id}")
+    public String showallmov(@PathVariable("id") long id, Model model){
 
+        Director onedir = directorRepo.findOne(id);
+        model.addAttribute("onedir", onedir);
+
+        System.out.println();
+
+        return "onedirmovlist";
+    }
+
+    // allow user to add a movie to a director
     @RequestMapping("/update/{id}")
     //get mapping
     public String updatemoivetodir(@PathVariable("id") long id, Model model)
@@ -99,6 +110,8 @@ public class HomeController {
         System.out.println(onedir.getId());
         return "movieform";
     }
+
+
 
 //    @GetMapping("/addmovie")
 //    public String addmov(Model model) {

@@ -14,6 +14,8 @@
     </tr>
     <th:block th:each="director:${alldir}">
         <tr>
+
+            <td>Director info: </td>
             <td th:text="'Id: '+ ${director.id}"></td>
             <td th:text="'Name: ' + ${director.name}"></td>
             <td th:text="'Genre: '+${director.genre}"></td>
@@ -21,27 +23,30 @@
             <td>
 
                 <a th:href="@{/update/{id}(id=${director.id})}">Add a movie to this director</a>
+                <a th:href="@{/show/{id}(id=${director.id})}">Show all movie by this director</a>
 
             </td>
 
         </tr>
 
-        <tr><td th:text="'Movies directed by ' + ${director.name}"></td></tr>
+        <tr><td th:text="'Movie by ' + ${director.name} + ': '"></td></tr>
+
 
         <th:block th:each="movie:${director.movies}">
             <tr>
-                <td th:text="'Id:' + ${movie.id}"></td>
+                <!--<td th:text="'Id:' + ${movie.id}"></td>-->
                 <td th:text="'Title:' + ${movie.title}"></td>
                 <td th:text="'Description:' + ${movie.description}"></td>
                 <td th:text="'Year:' + ${movie.year}"></td>
             </tr>
             <!--<tr><br/></tr>-->
             <!--<tr><br/></tr>-->
-
         </th:block>
 
         <!--<tr><br/></tr>-->
         <!--<tr><br/></tr>-->
+
+        <tr>====================================================================================================================</tr>
 
 
     </th:block>

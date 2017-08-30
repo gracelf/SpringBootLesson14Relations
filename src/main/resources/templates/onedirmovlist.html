@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+
+<body>
+
+
+<table>
+    <th:block th:each="movie:${onedir.movies}">
+        <tr>
+            <!--<td th:text="'Id:' + ${movie.id}"></td>-->
+            <td th:text="'Title:' + ${movie.title}"></td>
+            <td th:text="'Description:' + ${movie.description}"></td>
+            <td th:text="'Year:' + ${movie.year}"></td>
+        </tr>
+        <!--<tr><br/></tr>-->
+        <!--<tr><br/></tr>-->
+    </th:block>
+
+</table>
+</body>
+</html>
